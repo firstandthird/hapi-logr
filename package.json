@@ -1,0 +1,21 @@
+{
+  "name": "hapi-logr",
+  "description": "Hapi logging plugin using Logr",
+  "homepage": "https://github.com/firstandthird/hapi-logr",
+  "author": "First+Third",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/firstandthird/hapi-logr.git"
+  },
+  "dependencies": {
+    "logr": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.2.0",
+    "eslint-config-airbnb": "^6.0.2",
+    "eslint-config-firstandthird": "^1.5.0",
+    "eslint-plugin-react": "^4.1.0",
+    "hapi": "^13.0.0"
+  }
+}
