@@ -9,7 +9,7 @@ exports.register = function(server, options, next) {
   });
 
   server.on('request-internal', (request, event, tags) => {
-    if (tags.error) {
+    if (tags.error && tags.internal) {
       const data = {
         message: event.data.message,
         stack: event.data.stack
