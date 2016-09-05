@@ -9,7 +9,7 @@
     "url": "https://github.com/firstandthird/hapi-logr.git"
   },
   "dependencies": {
-    "logr": "1.12.0"
+    "logr": "1.13.0"
   },
   "devDependencies": {
     "eslint": "^2.2.0",
