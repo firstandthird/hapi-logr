@@ -1,5 +1,11 @@
 
-1.2.n / 2016-04-22
+1.3.0 / 2016-09-05
+==================
+
+  * check if data before logging
+  * updated logr to 1.12.0
+
+1.2.0 / 2016-04-22
 ==================
 
   * added user agent to request-internal error
