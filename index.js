@@ -5,6 +5,9 @@ exports.register = function(server, options, next) {
   const log = new Logr(options);
 
   server.on('log', (event, tags) => {
+    if (!event.data) {
+      return;
+    }
     log(event.tags, event.data);
   });
 
