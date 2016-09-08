@@ -13,7 +13,6 @@ server.register({
         pretty: true
       }
     }
-
   }
 }, (err) => {
   if (err) {
@@ -27,7 +26,7 @@ server.register({
     server.route({
       path: '/error',
       method: 'get',
-      handler: function(request, reply) {
+      handler: (request, reply) => {
         reply(new Error('some error here'));
       }
     });
