@@ -8,14 +8,19 @@
     "type": "git",
     "url": "https://github.com/firstandthird/hapi-logr.git"
   },
+  "scripts": {
+    "test": "lab -e \"\" test",
+    "lint": "eslint ."
+  },
   "dependencies": {
     "logr": "1.13.0"
   },
   "devDependencies": {
-    "eslint": "^2.2.0",
-    "eslint-config-airbnb": "^6.0.2",
-    "eslint-config-firstandthird": "^1.5.0",
-    "eslint-plugin-react": "^4.1.0",
+    "eslint": "^3.4.0",
+    "eslint-config-firstandthird": "^3.0.2",
+    "eslint-plugin-import": "^1.14.0",
+    "code": "^3.0.2",
+    "lab": "^11.0.1",
     "hapi": "^13.0.0"
   }
 }
