@@ -12,6 +12,7 @@ lab.test('test server is initialized ', (done) => {
     options: {
       renderOptions: {
         console: {
+          colors: false,
           pretty: true
         }
       }
