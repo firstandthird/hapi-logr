@@ -1,4 +1,12 @@
 
+1.5.0 / 2017-02-01
+==================
+
+  * logr 1.17.0
+  * chore(package): update dependencies
+  * move lab/code to dev dependencies
+  * travis/tests/lint
+
 1.4.0 / 2016-09-05
 ==================
 
