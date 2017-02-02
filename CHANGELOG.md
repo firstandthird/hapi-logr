@@ -1,4 +1,10 @@
 
+1.6.0 / 2017-02-02
+==================
+
+  * disable colors in tests so the tests pass
+  * updated logr to 1.18.0
+
 1.5.0 / 2017-02-01
 ==================
 
