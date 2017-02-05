@@ -13,14 +13,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "logr": "1.18.0"
+    "logr": "1.19.0"
   },
   "devDependencies": {
-    "eslint": "^3.4.0",
-    "eslint-config-firstandthird": "^3.0.2",
-    "eslint-plugin-import": "^2.2.0",
-    "code": "^4.0.0",
-    "lab": "^11.0.1",
-    "hapi": "^16.0.2"
+    "code": "4.0.0",
+    "eslint": "3.4.0",
+    "eslint-config-firstandthird": "3.0.2",
+    "eslint-plugin-import": "2.2.0",
+    "hapi": "16.0.2",
+    "lab": "12.1.0"
   }
 }
