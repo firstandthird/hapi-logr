@@ -2,7 +2,7 @@
 
 const Logr = require('logr');
 exports.register = function(server, options, next) {
-  const log = new Logr(options);
+  const log = new Logr.createLogger(options);
 
   server.on('log', (event, tags) => {
     if (!event.data) {

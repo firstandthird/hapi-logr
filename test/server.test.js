@@ -10,10 +10,11 @@ lab.test('test server is initialized ', (done) => {
   server.register({
     register: require('../'),
     options: {
-      renderOptions: {
-        console: {
-          colors: false,
-          pretty: true
+      reporters: {
+        consoleColor: {
+          reporter: 'logr-console-color',
+          options: {
+          }
         }
       }
     }
@@ -25,10 +26,11 @@ lab.test('test server is initialized ', (done) => {
       code.expect(startErr).to.equal(undefined);
       const oldLog = console.log;
       console.log = (input) => {
+        console.warn(input);
         console.log = oldLog;
-        code.expect(input).to.include('[start]');
-        const obj = JSON.parse(input.split('[start]')[1]);
-        code.expect(obj.message).to.equal('server started');
+        code.expect(input).to.include('start');
+        code.expect(input).to.include('uri');
+        code.expect(input).to.include('server started');
         done();
       };
       server.log(['start'], { message: 'server started', uri: server.info.uri });
