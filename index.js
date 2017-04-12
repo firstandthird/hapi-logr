@@ -15,7 +15,7 @@ exports.register = function(server, options, next) {
     server.ext('onRequest', (request, reply) => {
       const data = {
         event: 'request',
-        method: `${request.method.toUpperCase()} ${request.url.path}`,
+        path: `${request.method.toUpperCase()} ${request.url.path}`,
         id: request.id,
         userAgent: (request.headers) ? request.headers['user-agent'] : '',
         info: request.info
