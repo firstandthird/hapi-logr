@@ -52,28 +52,74 @@ lab.test('option to log all routes ', (done) => {
       throw err;
     }
     server.route({
-      path: '/test',
       method: 'GET',
+      path: '/test',
       handler(request, reply) {
         reply('hello');
       }
     });
+    server.route({
+      method: 'GET',
+      path: '/error',
+      handler(request, reply) {
+        reply('hello').code(500);
+      }
+    });
+    server.route({
+      method: 'GET',
+      path: '/warning',
+      handler(request, reply) {
+        reply('hello').code(404);
+      }
+    });
+    server.route({
+      method: 'GET',
+      path: '/notice',
+      handler(request, reply) {
+        reply('hello').code(300);
+      }
+    });
+
     server.start((startErr) => {
       const oldLog = console.log;
       const all = [];
-      console.log = (input) => {
+      const acc = (input) => {
         all.push(input);
       };
+      console.log = acc;
       server.inject({
-        url: '/test',
+        url: '/test?query=param1',
         method: 'GET'
       }, response => {
-        console.log = oldLog;
-        server.stop(() => {
-          code.expect(all[0]).to.include('referrer');
-          code.expect(all[0]).to.include('hostname');
-          code.expect(all[0]).to.include('userAgent');
-          done();
+        server.inject({
+          url: '/notice',
+          method: 'GET'
+        }, response2 => {
+          server.inject({
+            url: '/warning',
+            method: 'GET'
+          }, response3 => {
+            server.inject({
+              url: '/error',
+              method: 'GET'
+            }, response4 => {
+              // wait a bit so tail events are processed:
+              setTimeout(() => {
+                console.log = oldLog;
+                server.stop(() => {
+                  code.expect(all[0]).to.include('path');
+                  code.expect(all[0]).to.include('responseTime');
+                  code.expect(all[0]).to.include('param1');
+                  code.expect(all[1]).to.include('path');
+                  code.expect(all[1]).to.include('responseTime');
+                  code.expect(all[1]).to.include('hapi-logr,notice');
+                  code.expect(all[2]).to.include('hapi-logr,warning');
+                  code.expect(all[3]).to.include('hapi-logr,error');
+                  done();
+                });
+              }, 1000);
+            });
+          });
         });
       });
     });
