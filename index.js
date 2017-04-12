@@ -10,7 +10,20 @@ exports.register = function(server, options, next) {
     }
     log(event.tags, event.data);
   });
-
+  if (options.requests === true) {
+    // run this once per request:
+    server.ext('onRequest', (request, reply) => {
+      const data = {
+        event: 'request',
+        method: `${request.method.toUpperCase()} ${request.url.path}`,
+        id: request.id,
+        userAgent: (request.headers) ? request.headers['user-agent'] : '',
+        info: request.info
+      };
+      log(['hapi-logr', 'request'], data);
+      reply.continue();
+    });
+  }
   server.on('request-internal', (request, event, tags) => {
     if (tags.error && tags.internal) {
       const userAgent = (request.headers) ? request.headers['user-agent'] : '';

@@ -8,6 +8,7 @@ server.connection({ port: 8085 });
 server.register({
   register: require('../'),
   options: {
+    requests: true,
     renderOptions: {
       console: {
         pretty: true
@@ -28,6 +29,13 @@ server.register({
       method: 'get',
       handler: (request, reply) => {
         reply(new Error('some error here'));
+      }
+    });
+    server.route({
+      path: '/ok',
+      method: 'get',
+      handler: (request, reply) => {
+        reply('it`s all good');
       }
     });
 
