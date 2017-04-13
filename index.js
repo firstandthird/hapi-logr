@@ -28,7 +28,7 @@ exports.register = function(server, options, next) {
         info: request.info,
         httpVersion: request.raw.req.httpVersion
       };
-      const tags = ['hapi-logr'];
+      const tags = ['request'];
       if (request.response.statusCode >= 500) {
         tags.push('error');
       } else if (request.response.statusCode >= 400) {
