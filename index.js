@@ -2,7 +2,7 @@
 
 const Logr = require('logr');
 exports.register = function(server, options, next) {
-  const log = new Logr.createLogger(options);
+  const log = Logr.createLogger(options);
 
   server.on('log', (event, tags) => {
     if (!event.data) {
@@ -19,7 +19,7 @@ exports.register = function(server, options, next) {
         path: request.url.path,
         id: request.id,
         timestamp: request.info.received,
-        query: request.query,
+        query: Object.assign({}, request.query),
         userAgent: (request.headers) ? request.headers['user-agent'] : '',
         statusCode: request.response.statusCode,
         instance: request.connection.info.uri,

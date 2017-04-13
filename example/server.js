@@ -9,9 +9,12 @@ server.register({
   register: require('../'),
   options: {
     requests: true,
-    renderOptions: {
+    reporters: {
       console: {
-        pretty: true
+        reporter: require('logr-console-color')
+      },
+      flat: {
+        reporter: require('logr-flat')
       }
     }
   }

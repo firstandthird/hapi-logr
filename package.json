@@ -22,6 +22,7 @@
     "eslint-plugin-import": "2.2.0",
     "hapi": "^16.1.0",
     "lab": "12.1.0",
-    "logr-console-color": "^1.0.0"
+    "logr-console-color": "^1.0.0",
+    "logr-flat": "2.0.0"
   }
 }
