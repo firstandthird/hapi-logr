@@ -112,9 +112,9 @@ lab.test('option to log all routes ', (done) => {
                   code.expect(all[0]).to.include('param1');
                   code.expect(all[1]).to.include('path');
                   code.expect(all[1]).to.include('responseTime');
-                  code.expect(all[1]).to.include('hapi-logr,notice');
-                  code.expect(all[2]).to.include('hapi-logr,warning');
-                  code.expect(all[3]).to.include('hapi-logr,error');
+                  code.expect(all[1]).to.include('request,notice');
+                  code.expect(all[2]).to.include('request,warning');
+                  code.expect(all[3]).to.include('request,error');
                   done();
                 });
               }, 1000);
