@@ -49,6 +49,9 @@ exports.register = function(server, options, next) {
         message: event.data.message,
         stack: event.data.stack
       };
+      if (request.headers.referrer) {
+        data.referrer = request.headers.referrer;
+      }
       log(event.tags, data);
     }
   });
