@@ -9,7 +9,7 @@
     "url": "https://github.com/firstandthird/hapi-logr.git"
   },
   "scripts": {
-    "test": "lab -e \"\" test",
+    "test": "lab --leaks -e \"\" test",
     "lint": "eslint ."
   },
   "dependencies": {
