@@ -1,6 +1,8 @@
 'use strict';
 
 const Logr = require('logr');
+const userAgentLib = require('useragent');
+
 exports.register = function(server, options, next) {
   const log = Logr.createLogger(options);
 
@@ -20,7 +22,7 @@ exports.register = function(server, options, next) {
         id: request.id,
         timestamp: request.info.received,
         query: Object.assign({}, request.query),
-        userAgent: (request.headers) ? request.headers['user-agent'] : '',
+        userAgent: (request.headers) ? userAgentLib.parse(request.headers['user-agent']).toString() : '',
         statusCode: request.response.statusCode,
         instance: request.connection.info.uri,
         labels: request.connection.settings.labels,
@@ -41,7 +43,7 @@ exports.register = function(server, options, next) {
   }
   server.on('request-internal', (request, event, tags) => {
     if (tags.error && tags.internal) {
-      const userAgent = (request.headers) ? request.headers['user-agent'] : '';
+      const userAgent = (request.headers) ? userAgentLib.parse(request.headers['user-agent']).toString() : '';
       const data = {
         method: request.method,
         url: request.url.href,

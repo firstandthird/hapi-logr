@@ -13,7 +13,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "logr": "^2.2.0"
+    "logr": "^2.2.0",
+    "useragent": "^2.2.1"
   },
   "devDependencies": {
     "code": "4.0.0",
