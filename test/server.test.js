@@ -125,3 +125,39 @@ lab.test('option to log all routes ', (done) => {
     });
   });
 });
+
+lab.test('can change client errors to warnings ', (done) => {
+  const server = new Hapi.Server();
+  server.connection({ port: 8081 });
+
+  server.register({
+    register: require('../'),
+    options: {
+      clientErrorsToWarnings: true,
+      reporters: {
+        consoleColor: {
+          reporter: 'logr-console-color',
+          options: {
+          }
+        }
+      }
+    }
+  }, (err) => {
+    if (err) {
+      throw err;
+    }
+    server.start((startErr) => {
+      code.expect(startErr).to.equal(undefined);
+      const oldLog = console.log;
+
+      console.log = (input) => {
+        console.warn(input);
+        console.log = oldLog;
+        code.expect(input).to.include('warning');
+        code.expect(input).to.not.include('error');
+        server.stop(done);
+      };
+      server.log(['error', 'client'], { message: 'server started' });
+    });
+  });
+});

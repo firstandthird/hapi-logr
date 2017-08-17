@@ -10,6 +10,9 @@ exports.register = function(server, options, next) {
     if (!event.data) {
       return;
     }
+    if (options.clientErrorsToWarnings && event.tags.indexOf('error') !== -1 && event.tags.indexOf('client') !== -1) {
+      event.tags[event.tags.indexOf('error')] = 'warning';
+    }
     log(event.tags, event.data);
   });
   if (options.requests === true) {
@@ -56,6 +59,9 @@ exports.register = function(server, options, next) {
       };
       if (request.headers.referrer) {
         data.referrer = request.headers.referrer;
+      }
+      if (options.clientErrorsToWarnings && event.tags.indexOf('error') !== -1 && event.tags.indexOf('client') !== -1) {
+        event.tags[event.tags.indexOf('error')] = 'warning';
       }
       log(event.tags, data);
     }
