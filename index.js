@@ -13,7 +13,7 @@ exports.register = function(server, options, next) {
     if (options.clientErrorsToWarnings && event.tags.indexOf('error') !== -1 && event.tags.indexOf('client') !== -1) {
       event.tags[event.tags.indexOf('error')] = 'warning';
     }
-    log(event.tags, event.data);
+    log(event.tags, event.data, { addErrorTagToErrors: !options.clientErrorsToWarnings });
   });
   if (options.requests === true) {
     // run this once per request:
@@ -42,7 +42,7 @@ exports.register = function(server, options, next) {
       } else if (request.response.statusCode >= 300) {
         tags.push('notice');
       }
-      log(tags, data);
+      log(tags, data, { addErrorTagToErrors: !options.clientErrorsToWarnings });
     });
   }
   server.on('request-internal', (request, event, tags) => {
@@ -63,7 +63,7 @@ exports.register = function(server, options, next) {
       if (options.clientErrorsToWarnings && event.tags.indexOf('error') !== -1 && event.tags.indexOf('client') !== -1) {
         event.tags[event.tags.indexOf('error')] = 'warning';
       }
-      log(event.tags, data);
+      log(event.tags, data, { addErrorTagToErrors: !options.clientErrorsToWarnings });
     }
   });
   next();

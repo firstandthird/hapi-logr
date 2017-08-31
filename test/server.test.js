@@ -157,7 +157,7 @@ lab.test('can change client errors to warnings ', (done) => {
         code.expect(input).to.not.include('error');
         server.stop(done);
       };
-      server.log(['error', 'client'], { message: 'server started' });
+      server.log(['error', 'client'], new Error('server started'));
     });
   });
 });
