@@ -63,7 +63,7 @@ exports.register = function(server, options, next) {
       if (options.clientErrorsToWarnings && event.tags.indexOf('error') !== -1 && event.tags.indexOf('client') !== -1) {
         event.tags[event.tags.indexOf('error')] = 'warning';
       }
-      log(event.tags, data);
+      log(event.tags, data, options);
     }
   });
   next();
