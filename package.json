@@ -19,7 +19,7 @@
   "devDependencies": {
     "code": "4.1.0",
     "eslint": "^4.6.1",
-    "eslint-config-firstandthird": "^3.3.0",
+    "eslint-config-firstandthird": "^4.0.0",
     "eslint-plugin-import": "2.7.0",
     "hapi": "^16.5.2",
     "lab": "14.2.2",
