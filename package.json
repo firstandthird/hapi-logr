@@ -3,7 +3,7 @@
   "description": "Hapi logging plugin using Logr",
   "homepage": "https://github.com/firstandthird/hapi-logr",
   "author": "First+Third",
-  "version": "3.6.0",
+  "version": "3.6.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/firstandthird/hapi-logr.git"
