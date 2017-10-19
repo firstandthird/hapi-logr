@@ -161,3 +161,75 @@ lab.test('can change client errors to warnings ', (done) => {
     });
   });
 });
+
+lab.test('logType=cli uses logr-console-color to log ', (done) => {
+  const server = new Hapi.Server();
+  server.connection({ port: 8081 });
+
+  server.register({
+    register: require('../'),
+    options: {
+      logType: 'cli',
+      requests: true
+    }
+  }, (err) => {
+    if (err) {
+      throw err;
+    }
+    server.route({
+      method: 'GET',
+      path: '/test',
+      handler(request, reply) {
+        reply('hello');
+      }
+    });
+    server.start(() => {
+      const os = require('os');
+      console.log = (msg) => {
+        code.expect(msg.split(os.EOL).length).to.not.equal(1);
+        done();
+      }
+      server.inject({
+        method: 'get',
+        url: '/test'
+      }, (response) => {
+      });
+    });
+  });
+});
+
+lab.test('logType=flat uses logr-flat to log', (done) => {
+  const server = new Hapi.Server();
+  server.connection({ port: 8081 });
+
+  server.register({
+    register: require('../'),
+    options: {
+      logType: 'flat',
+      requests: true
+    }
+  }, (err) => {
+    if (err) {
+      throw err;
+    }
+    server.route({
+      method: 'GET',
+      path: '/test',
+      handler(request, reply) {
+        reply('hello');
+      }
+    });
+    server.start(() => {
+      const os = require('os');
+      console.log = (msg) => {
+        code.expect(msg.split(os.EOL).length).to.equal(1);
+        done();
+      }
+      server.inject({
+        method: 'get',
+        url: '/test'
+      }, (response) => {
+      });
+    });
+  });
+});

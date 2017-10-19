@@ -4,6 +4,21 @@ const Logr = require('logr');
 const userAgentLib = require('useragent');
 
 exports.register = function(server, options, next) {
+  // see if there's a default log reporter that was requested:
+  // cli log type:
+  if (options.logType === 'cli') {
+    options.reporters = {
+      console: {
+        reporter: require('logr-console-color')
+      }
+    };
+  } else if (options.logType === 'flat') {
+    options.reporters = {
+      console: {
+        reporter: require('logr-flat')
+      }
+    };
+  }
   const log = Logr.createLogger(options);
 
   server.on('log', (event, tags) => {
