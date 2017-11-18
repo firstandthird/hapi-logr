@@ -2,7 +2,8 @@
 const Hapi = require('hapi');
 const code = require('code');
 const lab = exports.lab = require('lab').script();
-const Boom = require('Boom');
+const Boom = require('boom');
+
 lab.test('test server is initialized ', async () => {
   const server = new Hapi.Server({ port: 8081 });
   await server.register({
