@@ -129,3 +129,39 @@ lab.test('can change client errors to warnings ', async() => {
   };
   server.log(['error', 'client'], new Error('server started'));
 });
+
+lab.test('can handle internal errors ', async() => {
+  const server = new Hapi.Server({ port: 8080 });
+  await server.register({
+    plugin: require('../'),
+    options: {
+      clientErrorsToWarnings: true,
+      reporters: {
+        consoleColor: {
+          reporter: 'logr-console-color',
+          options: {
+          }
+        }
+      }
+    }
+  });
+  await server.start();
+  const oldLog = console.log;
+  server.route({
+    method: 'get',
+    path: '/error',
+    handler(request, h) {
+      throw boom.badImplementation('an error');
+    }
+  })
+  console.log = async(input) => {
+    console.warn(input);
+    console.log = oldLog;
+    code.expect(input).to.include('error');
+    code.expect(input).to.include('Not Found');
+    await server.stop();
+  };
+  const wait = (ms) =>  new Promise(resolve => setTimeout(resolve, ms));
+  const response = await server.inject({ method: 'get', url: '/path' });
+  wait(2000);
+});
