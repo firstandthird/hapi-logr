@@ -3,10 +3,10 @@
 const Logr = require('logr');
 const userAgentLib = require('useragent');
 
-exports.register = function(server, options, next) {
+const register = async function(server, options) {
   const log = Logr.createLogger(options);
 
-  server.on('log', (event, tags) => {
+  server.events.on('log', (event, tags) => {
     if (!event.data) {
       return;
     }
@@ -17,7 +17,7 @@ exports.register = function(server, options, next) {
   });
   if (options.requests === true) {
     // run this once per request:
-    server.on('tail', (request) => {
+    server.events.on('response', (request) => {
       const data = {
         event: 'request',
         method: request.method,
@@ -28,8 +28,7 @@ exports.register = function(server, options, next) {
         userAgent: (request.headers) ? request.headers['user-agent'] : '',
         browser: (request.headers) ? userAgentLib.parse(request.headers['user-agent']).toString() : '',
         statusCode: request.response.statusCode,
-        instance: request.connection.info.uri,
-        labels: request.connection.settings.labels,
+        instance: request.info.uri,
         responseTime: Date.now() - request.info.received,
         info: request.info,
         httpVersion: request.raw.req.httpVersion
@@ -45,7 +44,8 @@ exports.register = function(server, options, next) {
       log(tags, data, { addErrorTagToErrors: !options.clientErrorsToWarnings });
     });
   }
-  server.on('request-internal', (request, event, tags) => {
+  // handle internal errors:
+  server.events.on({ name: 'request', channels: 'internal' }, (request, event, tags) => {
     if (tags.error && tags.internal) {
       const browser = (request.headers) ? userAgentLib.parse(request.headers['user-agent']).toString() : '';
       const userAgent = (request.headers) ? request.headers['user-agent'] : '';
@@ -54,8 +54,8 @@ exports.register = function(server, options, next) {
         url: request.url.href,
         userAgent,
         browser,
-        message: event.data.message,
-        stack: event.data.stack
+        message: event.error.message,
+        stack: event.error.stack
       };
       if (request.headers.referrer) {
         data.referrer = request.headers.referrer;
@@ -66,9 +66,10 @@ exports.register = function(server, options, next) {
       log(event.tags, data, { addErrorTagToErrors: !options.clientErrorsToWarnings });
     }
   });
-  next();
 };
 
-exports.register.attributes = {
+exports.plugin = {
+  register,
+  once: true,
   pkg: require('./package.json')
 };
