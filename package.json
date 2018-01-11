@@ -25,6 +25,6 @@
     "eslint-plugin-import": "2.7.0",
     "lab": "^15.1.2",
     "logr-console-color": "^1.3.1",
-    "logr-flat": "2.0.0"
+    "logr-flat": "3.1.0"
   }
 }
