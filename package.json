@@ -13,12 +13,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "hapi": "^16.6.0",
     "logr": "^2.7.0",
     "useragent": "^2.2.1"
   },
   "devDependencies": {
     "code": "4.1.0",
+    "hapi": "^16.6.0",
     "eslint": "^4.6.1",
     "eslint-config-firstandthird": "^4.0.0",
     "eslint-plugin-import": "2.7.0",
