@@ -46,7 +46,7 @@ const register = async function(server, options) {
   }
   // handle internal errors:
   server.events.on({ name: 'request', channels: 'internal' }, (request, event, tags) => {
-    if (tags.error && tags.internal) {
+    if (tags.error) {
       const browser = (request.headers) ? userAgentLib.parse(request.headers['user-agent']).toString() : '';
       const userAgent = (request.headers) ? request.headers['user-agent'] : '';
       const data = {
