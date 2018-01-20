@@ -20,7 +20,7 @@
   "devDependencies": {
     "boom": "^7.1.1",
     "code": "^5.1.2",
-    "eslint": "^4.6.1",
+    "eslint": "^4.16.0",
     "eslint-config-firstandthird": "^4.0.0",
     "eslint-plugin-import": "2.7.0",
     "lab": "^15.1.2",
