@@ -10,6 +10,7 @@ const register = async function(server, options) {
     if (!event.data) {
       return;
     }
+    log(event.tags, event.data, {});
   });
   if (options.requests === true) {
     // run this once per request:
