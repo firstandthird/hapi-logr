@@ -4,8 +4,6 @@ const code = require('code');
 const lab = exports.lab = require('lab').script();
 const Boom = require('boom');
 
-const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 lab.test('test server is initialized ', async () => {
   const server = new Hapi.Server({ port: 8081 });
   await server.register({
@@ -30,7 +28,7 @@ lab.test('test server is initialized ', async () => {
   });
   //   code.expect(input).to.include('uri');
   server.log(['start'], { message: 'server started', uri: server.info.uri });
-  await wait(500);
+  await new Promise(resolve => setTimeout(resolve, 500));
 });
 
 lab.test('option to log all routes ', async() => {
