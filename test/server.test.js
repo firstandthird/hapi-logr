@@ -84,8 +84,12 @@ lab.test('option to log all routes ', async() => {
   await wait(500);
   await server.stop();
   code.expect(all.length).to.equal(4);
+  code.expect(Object.keys(all[0])).to.equal(['event', 'method', 'path', 'timestamp', 'query', 'userAgent', 'browser', 'statusCode', 'responseTime', 'info', 'httpVersion']);
   code.expect(all[0].path).to.equal('/test?query=param1');
+  code.expect(Object.keys(all[1])).to.equal(['event', 'method', 'path', 'timestamp', 'query', 'userAgent', 'browser', 'statusCode', 'responseTime', 'info', 'httpVersion']);
   code.expect(all[1].path).to.equal('/notice');
+  code.expect(Object.keys(all[2])).to.equal(['event', 'method', 'path', 'timestamp', 'query', 'userAgent', 'browser', 'statusCode', 'responseTime', 'info', 'httpVersion']);
   code.expect(all[2].path).to.equal('/warning');
+  code.expect(Object.keys(all[3])).to.equal(['event', 'method', 'path', 'timestamp', 'query', 'userAgent', 'browser', 'statusCode', 'responseTime', 'info', 'httpVersion']);
   code.expect(all[3].path).to.equal('/error');
 });
