@@ -4,6 +4,8 @@ const code = require('code');
 const lab = exports.lab = require('lab').script();
 const Boom = require('boom');
 
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 lab.test('test server is initialized ', async () => {
   const server = new Hapi.Server({ port: 8081 });
   await server.register({
@@ -19,16 +21,16 @@ lab.test('test server is initialized ', async () => {
     }
   });
   await server.start();
-  const oldLog = console.log;
-  console.log = async (input) => {
-    console.warn(input);
-    console.log = oldLog;
-    code.expect(input).to.include('start');
-    code.expect(input).to.include('uri');
-    code.expect(input).to.include('server started');
+  server.events.on('log', async (event, tags) => {
+    code.expect(tags).to.equal({ start: true });
+    code.expect(typeof event.timestamp).to.equal('number');
+    code.expect(event.data.uri.startsWith('http://')).to.equal(true);
+    code.expect(event.data.message).to.equal('server started');
     await server.stop();
-  };
+  });
+  //   code.expect(input).to.include('uri');
   server.log(['start'], { message: 'server started', uri: server.info.uri });
+  await wait(500);
 });
 
 lab.test('option to log all routes ', async() => {
@@ -100,68 +102,4 @@ lab.test('option to log all routes ', async() => {
   code.expect(all[1]).to.include('request,notice');
   code.expect(all[2]).to.include('request,warning');
   code.expect(all[3]).to.include('request,error');
-});
-
-lab.test('can change client errors to warnings ', async() => {
-  const server = new Hapi.Server({ port: 8081 });
-  await server.register({
-    plugin: require('../'),
-    options: {
-      clientErrorsToWarnings: true,
-      reporters: {
-        consoleColor: {
-          reporter: 'logr-console-color',
-          options: {
-          }
-        }
-      }
-    }
-  });
-  await server.start();
-  const oldLog = console.log;
-
-  console.log = async(input) => {
-    console.warn(input);
-    console.log = oldLog;
-    code.expect(input).to.include('warning');
-    code.expect(input).to.not.include('error');
-    await server.stop();
-  };
-  server.log(['error', 'client'], new Error('server started'));
-});
-
-lab.test('can handle internal errors ', async() => {
-  const server = new Hapi.Server({ port: 8080 });
-  await server.register({
-    plugin: require('../'),
-    options: {
-      clientErrorsToWarnings: true,
-      reporters: {
-        consoleColor: {
-          reporter: 'logr-console-color',
-          options: {
-          }
-        }
-      }
-    }
-  });
-  await server.start();
-  const oldLog = console.log;
-  server.route({
-    method: 'get',
-    path: '/error',
-    handler(request, h) {
-      throw boom.badImplementation('an error');
-    }
-  })
-  console.log = async(input) => {
-    console.warn(input);
-    console.log = oldLog;
-    code.expect(input).to.include('error');
-    code.expect(input).to.include('Not Found');
-    await server.stop();
-  };
-  const wait = (ms) =>  new Promise(resolve => setTimeout(resolve, ms));
-  const response = await server.inject({ method: 'get', url: '/path' });
-  wait(2000);
 });

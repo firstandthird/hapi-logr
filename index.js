@@ -10,10 +10,6 @@ const register = async function(server, options) {
     if (!event.data) {
       return;
     }
-    if (options.clientErrorsToWarnings && event.tags.indexOf('error') !== -1 && event.tags.indexOf('client') !== -1) {
-      event.tags[event.tags.indexOf('error')] = 'warning';
-    }
-    log(event.tags, event.data, { addErrorTagToErrors: !options.clientErrorsToWarnings });
   });
   if (options.requests === true) {
     // run this once per request:
@@ -41,31 +37,9 @@ const register = async function(server, options) {
       } else if (request.response.statusCode >= 300) {
         tags.push('notice');
       }
-      log(tags, data, { addErrorTagToErrors: !options.clientErrorsToWarnings });
+      log(tags, data, {});
     });
   }
-  // handle internal errors:
-  server.events.on({ name: 'request', channels: 'internal' }, (request, event, tags) => {
-    if (tags.error) {
-      const browser = (request.headers) ? userAgentLib.parse(request.headers['user-agent']).toString() : '';
-      const userAgent = (request.headers) ? request.headers['user-agent'] : '';
-      const data = {
-        method: request.method,
-        url: request.url.href,
-        userAgent,
-        browser,
-        message: event.error.message,
-        stack: event.error.stack
-      };
-      if (request.headers.referrer) {
-        data.referrer = request.headers.referrer;
-      }
-      if (options.clientErrorsToWarnings && event.tags.indexOf('error') !== -1 && event.tags.indexOf('client') !== -1) {
-        event.tags[event.tags.indexOf('error')] = 'warning';
-      }
-      log(event.tags, data, { addErrorTagToErrors: !options.clientErrorsToWarnings });
-    }
-  });
 };
 
 exports.plugin = {
