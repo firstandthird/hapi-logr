@@ -6,10 +6,10 @@ const register = function(server, options) {
   const log = Logr.createLogger(options);
 
   server.events.on('log', (event, tags) => {
-    if (!event.data) {
+    if (!event.data && !event.error) {
       return;
     }
-    log(event.tags, event.data, {});
+    log(event.tags, event.data || event.error, {});
   });
 };
 
