@@ -1,9 +1,9 @@
 'use strict';
 
-const Logr = require('logr');
+const lograll = require('logr-all');
 
 const register = function(server, options) {
-  const log = Logr.createLogger(options);
+  const log = lograll(options);
 
   server.events.on('log', (event, tags) => {
     if (!event.data && !event.error) {

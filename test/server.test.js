@@ -11,8 +11,11 @@ lab.test('test server is initialized ', async () => {
   await server.register({
     plugin: require('../'),
     options: {
+      initLog: false,
       logger(input) {
-        code.expect(input).to.include('[start] {"message":"server started","uri":"http://');
+        code.expect(input).to.include('start');
+        code.expect(input).to.include('server started');
+        code.expect(input).to.include('uri');
         called = true;
       }
     }
