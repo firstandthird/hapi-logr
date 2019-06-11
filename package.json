@@ -13,7 +13,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "logr-all": "^1.6.0"
+    "logr-all": "^2.0.0"
   },
   "devDependencies": {
     "boom": "^7.2.0",
