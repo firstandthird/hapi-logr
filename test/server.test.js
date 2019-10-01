@@ -1,7 +1,7 @@
 'use strict';
-const Hapi = require('hapi');
-const code = require('code');
-const lab = exports.lab = require('lab').script();
+const Hapi = require('@hapi/hapi');
+const code = require('@hapi/code');
+const lab = exports.lab = require('@hapi/lab').script();
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
