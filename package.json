@@ -16,12 +16,12 @@
     "logr-all": "^2.0.0"
   },
   "devDependencies": {
-    "boom": "^7.2.0",
-    "code": "^5.1.2",
+    "@hapi/code": "^6.0.0",
+    "@hapi/hapi": "^18.4.0",
+    "@hapi/joi": "^16.1.4",
+    "@hapi/lab": "^20.3.2",
     "eslint": "^5.16.0",
     "eslint-config-firstandthird": "^4.0.0",
-    "eslint-plugin-import": "^2.17.2",
-    "hapi": "^17.8.5",
-    "lab": "^18.0.2"
+    "eslint-plugin-import": "^2.17.2"
   }
 }
