@@ -3,25 +3,27 @@
   "description": "Hapi logging plugin using Logr",
   "homepage": "https://github.com/firstandthird/hapi-logr",
   "author": "First+Third",
+  "license": "MIT",
   "version": "8.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/firstandthird/hapi-logr.git"
   },
   "scripts": {
-    "test": "lab --leaks -e \"\" test",
-    "lint": "eslint ."
+    "test": "lab",
+    "lint": "eslint "
   },
   "dependencies": {
-    "logr-all": "^2.0.0"
+    "logr-all": "^3.0.0"
   },
   "devDependencies": {
-    "@hapi/code": "^6.0.0",
-    "@hapi/hapi": "^18.4.0",
-    "@hapi/joi": "^16.1.4",
-    "@hapi/lab": "^20.3.2",
-    "eslint": "^5.16.0",
-    "eslint-config-firstandthird": "^4.0.0",
-    "eslint-plugin-import": "^2.17.2"
+    "@hapi/code": "^8.0.2",
+    "@hapi/hapi": "^20.0.2",
+    "@hapi/lab": "^24.1.0",
+    "eslint": "^7.13.0",
+    "eslint-config-firstandthird": "^6.0.2",
+    "eslint-plugin-import": "^2.17.2",
+    "logr-console-color": "^2.0.0",
+    "logr-flat": "^4.0.0"
   }
 }

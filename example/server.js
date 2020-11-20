@@ -1,7 +1,5 @@
-'use strict';
-
 const run = async() => {
-  const Hapi = require('hapi');
+  const Hapi = require('@hapi/hapi');
   const server = new Hapi.Server({ port: 8085 });
   await server.register({
     plugin: require('../'),
@@ -28,9 +26,7 @@ const run = async() => {
   server.route({
     path: '/ok',
     method: 'get',
-    handler: (request, h) => {
-      return 'it`s all good';
-    }
+    handler: (request, h) => 'it`s all good'
   });
   server.log(['start'], { message: 'server started', uri: server.info.uri });
 };

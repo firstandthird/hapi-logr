@@ -1,5 +1,3 @@
-'use strict';
-
 const lograll = require('logr-all');
 
 const register = function(server, options) {
