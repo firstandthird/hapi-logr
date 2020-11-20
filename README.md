@@ -12,7 +12,7 @@
 
 Hapi plugin to integrate logr reporters
 
-## Instalation
+## Installation
 
 ```sh
 npm install hapi-logr
