@@ -4,7 +4,7 @@
   "homepage": "https://github.com/firstandthird/hapi-logr",
   "author": "First+Third",
   "license": "MIT",
-  "version": "9.0.3",
+  "version": "9.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/firstandthird/hapi-logr.git"
@@ -14,7 +14,7 @@
     "lint": "eslint "
   },
   "dependencies": {
-    "logr-all": "^3.0.1"
+    "logr-all": "^3.0.3"
   },
   "devDependencies": {
     "@hapi/code": "^8.0.2",
